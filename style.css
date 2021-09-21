@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+:root {
+  --gradient-color-left: #eeaeca;
+  --gradient-color-right: #94bbe9;
+
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-image: linear-gradient(120deg, var(--gradient-color-left), var(--gradient-color-right));
+  color: #fff;
+  min-height: 100vh;
+}
+
+header {
+  font-size: 1.5rem;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+header,
+form {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form input,
+form button {
+  padding: .5rem;
+  font-size: 2rem;
+  border: none;
+  background-color: #fff;
+}
+
+form button {
+  background: #fff;
+  color: var(--gradient-color-left);
+  cursor: pointer;
+}
+
+form button i:hover {
+  color: #f588b7;
+  transition: all .3s ease;
+}
