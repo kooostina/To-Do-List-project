@@ -8,6 +8,8 @@
 :root {
   --gradient-color-left: #eeaeca;
   --gradient-color-right: #94bbe9;
+  --dark-text: rgb(92, 92, 92);
+  --add-button: #f588b7;
 
 }
 
@@ -42,13 +44,59 @@ form button {
   background-color: #fff;
 }
 
+form input {
+  color: var(--dark-text);
+}
+
 form button {
   background: #fff;
-  color: var(--gradient-color-left);
+  color: var(--add-button);
   cursor: pointer;
 }
 
-form button i:hover {
+/* form button i:hover {
   color: #f588b7;
   transition: all .3s ease;
+} */
+
+.todo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-list {
+  list-style: none;
+  min-width: 30%;
+}
+
+.todo-item {
+  flex-grow: 1;
+  padding: 0rem .5rem;
+}
+
+.todo {
+  background-color: #fff;
+  color: var(--dark-text);
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  font-size: 1.5rem;
+}
+
+.complete-btn,
+.trash-btn {
+border: none;
+  font-size: 1rem;
+  color: #fff;
+  padding: .5rem;
+  cursor: pointer;
+} 
+
+.complete-btn {
+  background-color: rgb(41, 172, 150);
+}
+
+.trash-btn {
+  background-color: rgb(255, 113, 132);
 }
