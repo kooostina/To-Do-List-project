@@ -72,7 +72,7 @@ form button {
 
 .todo-item {
   flex-grow: 1;
-  padding: 0rem .5rem;
+  padding: 0rem .7rem;
 }
 
 .todo {
@@ -82,16 +82,17 @@ form button {
   justify-content: space-between;
   margin: 1rem;
   font-size: 1.5rem;
+  transition: all .5s ease;
 }
 
 .complete-btn,
 .trash-btn {
-border: none;
+  border: none;
   font-size: 1rem;
   color: #fff;
   padding: .5rem;
   cursor: pointer;
-} 
+}
 
 .complete-btn {
   background-color: rgb(41, 172, 150);
@@ -99,4 +100,19 @@ border: none;
 
 .trash-btn {
   background-color: rgb(255, 113, 132);
+}
+
+.fa-check,
+.fa-trash {
+  pointer-events: none;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: .5;
+}
+
+.fall {
+  transform: translateY(8rem) rotate(20deg);
+  opacity: 0;
 }
