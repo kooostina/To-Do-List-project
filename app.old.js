@@ -15,57 +15,69 @@ document.addEventListener('DOMContentLoaded', getToDos);
 function addToDo(event) {
   // Stop the default form submitting
   event.preventDefault();
-
+  // Create a DIV
+  const toDoDiv = document.createElement('div');
+  toDoDiv.classList.add('todo');
+  // Create a Li
+  const newToDo = document.createElement('li');
+  newToDo.innerText = todoInput.value;
+  newToDo.classList.add('todo-item');
+  toDoDiv.appendChild(newToDo);
   // Add a todo to local storage
-  const newTodoData = initTodo(todoInput.value);
-  saveLocalTodos(newTodoData);
-  renderTodo(newTodoData);
-
+  saveLocalTodos(todoInput.value);
+  // Check button
+  const completeButton = document.createElement('button');
+  completeButton.classList.add('complete-btn');
+  completeButton.innerHTML = '<i class="fas fa-check"></i>';
+  toDoDiv.appendChild(completeButton);
+  // Trash button
+  const trashButton = document.createElement('button');
+  trashButton.classList.add('trash-btn');
+  trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+  toDoDiv.appendChild(trashButton);
+  // Append Div to the list
+  todoList.appendChild(toDoDiv);
   // Clear the input
   todoInput.value = "";
 }
 
-function initTodo(title, isCompleted = false) {
-  return {
-    id: Date.now(),
-    title: title,
-    isCompleted: isCompleted
-  }
+function initTodo() {
+  
 }
 
 function deleteCheck(e) {
   const item = e.target;
-  const todo = item.parentElement;
 
   // Delete button
   if (item.classList[0] === 'trash-btn') {
+    const todo = item.parentElement;
     // Animation of removing
     todo.classList.add('fall');
+
     removeLocalTodos(todo);
 
     // Actually removing the item
     todo.addEventListener('transitionend', function () {
       todo.remove();
     });
+
   }
 
   // Complete button
   if (item.classList[0] === 'complete-btn') {
+    const todo = item.parentElement;
     todo.classList.toggle('completed');
-    const todoId = todo.getAttribute('id');
-    saveCompletedTodo(todoId);
   }
 }
 
+
 function filterToDo(e) {
   const todos = todoList.childNodes;
-
   todos.forEach(function (todo) {
     switch (e.target.value) {
       case "all":
         todo.style.display = "flex";
         break;
-
       case "completed":
         if (todo.classList.contains("completed")) {
           todo.style.display = "flex";
@@ -73,7 +85,6 @@ function filterToDo(e) {
           todo.style.display = "none";
         };
         break;
-
       case "uncompleted":
         if (!todo.classList.contains("completed")) {
           todo.style.display = "flex";
@@ -92,15 +103,12 @@ function saveLocalTodos(todo) {
   localStorage.setItem('todos', JSON.stringify(todos));
 }
 
-function saveCompletedTodo(todoId) {
-  let todos = getLocalTodos();
-  const idx = todos.findIndex(todo => +todo.id === +todoId);
+// function saveCompletedTodos(todo) {
+//   let todos = getLocalTodos();
 
-  if (idx >= 0) {
-    todos[idx].isCompleted = !todos[idx].isCompleted;
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }
-}
+//   todos.push(todo);
+//   localStorage.setItem('complete-btn', JSON.stringify(todos));
+// }
 
 function getLocalTodos() {
   let todos;
@@ -116,41 +124,36 @@ function getLocalTodos() {
 }
 
 function renderTodo(todo) {
-  // Create a LI
-  const toDoDiv = document.createElement('li');
-  toDoDiv.classList.add('todo');
-  toDoDiv.setAttribute('id', todo.id);
-
   // Create a DIV
-  const newToDo = document.createElement('div');
-  newToDo.innerText = todo.title;
-  newToDo.classList.add('todo-item');
-  toDoDiv.appendChild(newToDo);
-
-  // Complete button
-  const completeButton = document.createElement('button');
-  completeButton.classList.add('complete-btn');
-  completeButton.innerHTML = '<i class="fas fa-check"></i>';
-  toDoDiv.appendChild(completeButton);
-
-  if (todo.isCompleted) {
-    toDoDiv.classList.add('completed');
-  }
-
-  // Delete button
-  const trashButton = document.createElement('button');
-  trashButton.classList.add('trash-btn');
-  trashButton.innerHTML = '<i class="fas fa-trash"></i>';
-  toDoDiv.appendChild(trashButton);
-
-  // Append Div to the list
-  todoList.appendChild(toDoDiv);
+    const toDoDiv = document.createElement('div');
+    toDoDiv.classList.add('todo');
+    // Create a Li
+    const newToDo = document.createElement('li');
+    newToDo.innerText = todo;
+    newToDo.classList.add('todo-item');
+    toDoDiv.appendChild(newToDo);
+    // Check button
+    const completeButton = document.createElement('button');
+    completeButton.classList.add('complete-btn');
+    completeButton.innerHTML = '<i class="fas fa-check"></i>';
+    toDoDiv.appendChild(completeButton);
+    // Trash button
+    const trashButton = document.createElement('button');
+    trashButton.classList.add('trash-btn');
+    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+    toDoDiv.appendChild(trashButton);
+    // Append Div to the list
+    todoList.appendChild(toDoDiv);
 }
+
 
 function getToDos() {
   let todos = getLocalTodos();
+  console.log(todos);
+
   todos.forEach((todo) => renderTodo(todo));
 }
+
 
 function removeLocalTodos(todo) {
   let todos = getLocalTodos();
